@@ -1,19 +1,24 @@
-import express from "express";
-import "dotenv/config";
-import cors from "cors";
-import connect from "./Auth_System/config/db.js";
-import { errorHandler } from "./Auth_System/middleware/authHandler.js";
-import userRoutes from "./Auth_System/routes/UserRoutes.js";
+import express from 'express';
+import 'dotenv/config';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import connect from './Auth_System/config/db.js';
+import { errorHandler } from './Auth_System/middleware/authHandler.js';
+import userRoutes from './Auth_System/routes/UserRoutes.js';
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const corsOptions = process.env.ORIGIN && process.env.ORIGIN !== "*"
+const corsOptions = process.env.ORIGIN && process.env.ORIGIN !== '*'
     ? { origin: process.env.ORIGIN }
     : { origin: true };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/portal', express.static(path.join(__dirname, 'student_portal')));
 
 app.use((req, res, next) => {
     console.log(req.path, req.method);
@@ -23,7 +28,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.status(200).json({
         success: true,
-        message: [{ result: 'AIS Integrated Systems API is running.' }]
+        message: [{ result: 'AIS Integrated Systems API is running.' }],
+        portal: 'Open http://localhost:3000/portal to test the Student Portal profile fetch.'
     });
 });
 
@@ -75,5 +81,5 @@ app.use(errorHandler);
 
 const PORT = Number(process.env.PORT) || 3000;
 app.listen(PORT, () => {
-    console.log(`✅ Server is running! Listening to port ${PORT}...`);
+    console.log(`Server is running on port ${PORT}`);
 });

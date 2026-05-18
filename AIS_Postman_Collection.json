@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "AIS Integrated Systems",
+    "name": "AIS Integrated Systems - Adapter Layer Complete",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -33,7 +33,7 @@
       }
     },
     {
-      "name": "Register",
+      "name": "Register and Sync to Legacy",
       "request": {
         "method": "POST",
         "header": [
@@ -44,7 +44,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"name\": \"Juan Dela Cruz\",\n  \"email\": \"juan@example.com\",\n  \"password\": \"12345678\",\n  \"birthdate\": \"2004-05-20\",\n  \"address\": \"Manila\",\n  \"program\": \"BSIT\",\n  \"studentStatus\": \"Regular\"\n}"
+          "raw": "{\n  \"email\": \"juan@example.com\",\n  \"password\": \"12345678\",\n  \"firstName\": \"Juan\",\n  \"lastName\": \"Dela Cruz\",\n  \"dob\": \"2004-05-20\",\n  \"course\": \"BSIT\",\n  \"major\": \"Business Analytics\",\n  \"address\": \"Manila\",\n  \"status\": \"Regular\"\n}"
         },
         "url": {
           "raw": "http://localhost:3000/user/register",
@@ -75,6 +75,53 @@
           "host": ["localhost"],
           "port": "3000",
           "path": ["user", "login"]
+        }
+      }
+    },
+    {
+      "name": "Fetch My Student Profile using Token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer PASTE_LOGIN_TOKEN_HERE"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/user/profile",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["user", "profile"]
+        }
+      }
+    },
+    {
+      "name": "Fetch Student Profile by Legacy ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/user/profile/PASTE_LEGACY_STUDENT_ID_HERE",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["user", "profile", "PASTE_LEGACY_STUDENT_ID_HERE"]
+        }
+      }
+    },
+    {
+      "name": "Adapter Layer - Fetch Profile Directly",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/user/profile/PASTE_LEGACY_STUDENT_ID_HERE",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["user", "profile", "PASTE_LEGACY_STUDENT_ID_HERE"]
         }
       }
     }

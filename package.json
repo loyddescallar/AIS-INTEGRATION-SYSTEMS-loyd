@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "adapter": "node adapter_layer/app.js",
+    "dev:adapter": "nodemon adapter_layer/app.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
